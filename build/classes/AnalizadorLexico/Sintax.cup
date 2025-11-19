@@ -1,0 +1,61 @@
+package AnalizadorLexico;
+import java_cup.runtime.Symbol;
+
+parser code {:
+    private Symbol s;
+
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
+:};
+
+terminal Int, Bool, Void, Main, Return, True, False, Igual, Suma, Resta, Multiplicacion, Division, 
+        ParentesisAbre, ParentesisCierra, PuntoYComa, LlaveAbre, LlaveCierra, Identificador, Numero;
+
+non terminal INICIO, LISTA_SENTENCIAS, SENTENCIA, DECLARACION, ASIGNACION, RETORNO, EXPRESION;
+
+precedence left Suma, Resta;
+precedence left Multiplicacion, Division;
+
+start with INICIO;
+
+INICIO ::= Int Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
+            | Void Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
+            | Bool Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
+;
+
+LISTA_SENTENCIAS ::= /* vacío */
+            | LISTA_SENTENCIAS SENTENCIA
+;
+
+SENTENCIA ::= DECLARACION
+            | ASIGNACION
+            | RETORNO
+;
+
+DECLARACION ::= Int Identificador PuntoYComa
+            | Bool Identificador PuntoYComa
+            | Int Identificador Igual EXPRESION PuntoYComa
+            | Bool Identificador Igual EXPRESION PuntoYComa
+;
+
+ASIGNACION ::= Identificador Igual EXPRESION PuntoYComa
+;
+
+RETORNO ::= Return EXPRESION PuntoYComa
+;
+
+EXPRESION ::= Numero
+            | Identificador
+            | True
+            | False
+            | EXPRESION Suma EXPRESION
+            | EXPRESION Resta EXPRESION
+            | EXPRESION Multiplicacion EXPRESION
+            | EXPRESION Division EXPRESION
+            | ParentesisAbre EXPRESION ParentesisCierra
+;
