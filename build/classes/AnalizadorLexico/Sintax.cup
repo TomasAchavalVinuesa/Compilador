@@ -1,5 +1,8 @@
 package AnalizadorLexico;
 import java_cup.runtime.Symbol;
+import java.util.List;
+import java.util.ArrayList;
+import AST.*;
 
 parser code {:
     private Symbol s;
@@ -16,46 +19,119 @@ parser code {:
 terminal Int, Bool, Void, Main, Return, True, False, Igual, Suma, Resta, Multiplicacion, Division, 
         ParentesisAbre, ParentesisCierra, PuntoYComa, LlaveAbre, LlaveCierra, Identificador, Numero;
 
-non terminal INICIO, LISTA_SENTENCIAS, SENTENCIA, DECLARACION, ASIGNACION, RETORNO, EXPRESION;
+non terminal NodoPrograma INICIO;
+non terminal List LISTA_SENTENCIAS;
+non terminal NodoAST SENTENCIA, DECLARACION, ASIGNACION, RETORNO, EXPRESION;
 
 precedence left Suma, Resta;
 precedence left Multiplicacion, Division;
 
 start with INICIO;
 
-INICIO ::= Int Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
-            | Void Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
-            | Bool Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS LlaveCierra
+INICIO ::= Int:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
+        {: 
+            List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
+            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista); 
+        :}
+    | Void:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
+        {: 
+            List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
+            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista);
+        :}
+    | Bool:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
+        {: 
+            List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
+            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista);
+        :}
 ;
 
-LISTA_SENTENCIAS ::= /* vacío */
-            | LISTA_SENTENCIAS SENTENCIA
+LISTA_SENTENCIAS ::= 
+        {: RESULT = new ArrayList<NodoAST>(); :}
+    | LISTA_SENTENCIAS:lista SENTENCIA:sentencia
+        {: 
+            lista.add((NodoAST)sentencia);
+            RESULT = lista;
+        :}
 ;
 
-SENTENCIA ::= DECLARACION
-            | ASIGNACION
-            | RETORNO
+SENTENCIA ::= DECLARACION:dec
+        {: 
+            RESULT = (NodoAST)dec;
+        :}
+    | ASIGNACION:asig
+        {: 
+            RESULT = (NodoAST)asig;
+        :}
+    | RETORNO:ret
+        {: 
+            RESULT = (NodoAST)ret;
+        :}
 ;
 
-DECLARACION ::= Int Identificador PuntoYComa
-            | Bool Identificador PuntoYComa
-            | Int Identificador Igual EXPRESION PuntoYComa
-            | Bool Identificador Igual EXPRESION PuntoYComa
+DECLARACION ::= Int:tipo Identificador:id PuntoYComa
+        {: 
+            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), null);
+        :}
+    | Int:tipo Identificador:id Igual EXPRESION:expresion PuntoYComa
+        {: 
+            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), (NodoAST)expresion);
+        :}
+    | Bool:tipo Identificador:id PuntoYComa
+        {: 
+            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), null);
+        :}
+    | Bool:tipo Identificador:id Igual EXPRESION:expresion PuntoYComa
+        {: 
+            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), (NodoAST)expresion);
+        :}
 ;
 
-ASIGNACION ::= Identificador Igual EXPRESION PuntoYComa
+ASIGNACION ::= Identificador:id Igual EXPRESION:expresion PuntoYComa
+        {:
+            RESULT = new NodoAsignacion(id.value.toString(), (NodoAST)expresion);
+        :}
 ;
 
-RETORNO ::= Return EXPRESION PuntoYComa
+RETORNO ::= Return EXPRESION:expresion PuntoYComa
+        {:
+            RESULT = new NodoRetorno((NodoAST)expresion);
+        :}
 ;
 
-EXPRESION ::= Numero
-            | Identificador
-            | True
-            | False
-            | EXPRESION Suma EXPRESION
-            | EXPRESION Resta EXPRESION
-            | EXPRESION Multiplicacion EXPRESION
-            | EXPRESION Division EXPRESION
-            | ParentesisAbre EXPRESION ParentesisCierra
+EXPRESION ::= Numero:num
+        {: 
+            RESULT = new NodoLiteral(num.value.toString()); 
+        :}
+    | Identificador:id
+        {: 
+            RESULT = new NodoIdentificador(id.value.toString()); 
+        :}
+    | True:valor
+        {: 
+            RESULT = new NodoLiteral(valor.value.toString()); 
+        :}
+    | False:valor
+        {: 
+            RESULT = new NodoLiteral(valor.value.toString()); 
+        :}
+    | EXPRESION:op1 Suma:op EXPRESION:op2
+        {: 
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2); 
+        :}
+    | EXPRESION:op1 Resta:op EXPRESION:op2
+        {: 
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+        :}
+    | EXPRESION:op1 Multiplicacion:op EXPRESION:op2
+        {: 
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+        :}
+    | EXPRESION:op1 Division:op EXPRESION:op2
+        {: 
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+        :}
+    | ParentesisAbre EXPRESION:exp ParentesisCierra
+        {: 
+            RESULT = (NodoAST)exp;
+        :}
 ;

@@ -5,7 +5,8 @@
         <group>
             <file>file:/D:/AAA%20RECIBIRME/Compiladores/Compilador2025/AnalizadorLexico/src/AnalizadorLexico/Principal.java</file>
             <file>file:/D:/AAA%20RECIBIRME/Compiladores/Compilador2025/AnalizadorLexico/src/AnalizadorLexico/FrmPrincipal.java</file>
-            <file>file:/D:/AAA%20RECIBIRME/Compiladores/Compilador2025/AnalizadorLexico/src/AnalizadorLexico/LexerCup.java</file>
+            <file>file:/D:/AAA%20RECIBIRME/Compiladores/Compilador2025/AnalizadorLexico/src/AnalizadorLexico/Lexer.flex</file>
+            <file>file:/D:/AAA%20RECIBIRME/Compiladores/Compilador2025/AnalizadorLexico/src/AnalizadorLexico/Lexer.java</file>
         </group>
     </open-files>
 </project-private>

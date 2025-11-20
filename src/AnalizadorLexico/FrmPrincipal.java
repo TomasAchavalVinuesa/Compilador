@@ -4,6 +4,8 @@
  */
 package AnalizadorLexico;
 
+import AST.*;
+import TablaSimbolos.*;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -347,14 +349,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // 27:52
         String ST = txtResultado.getText();
         Sintax s = new Sintax(new AnalizadorLexico.LexerCup(new StringReader(ST)));
+        TablaSimbolos ts = new TablaSimbolos();
         
         try {
-            s.parse();
-            txtAnalizarSin.setText("Analisis realizado correctamente");
+            // 1. Ejecutar el análisis sintáctico y obtener la raíz del AST
+            java_cup.runtime.Symbol rootSymbol = s.parse();
+            NodoPrograma raizAST = (NodoPrograma) rootSymbol.value; // El RESULT de la regla INICIO
+
+            // 2. Ejecutar el Análisis Semántico
+            raizAST.analizar(ts);
+
+            // Si todo fue bien (no se lanzó ninguna excepción):
+            txtAnalizarSin.setText("Análisis Sintáctico y Semántico realizado correctamente");
             txtAnalizarSin.setForeground(new Color(25, 111, 61));
+
+        // 3. Capturar ERRORES SEMÁNTICOS (tu nueva excepción)
+        } catch (ExcepcionSemantica ex) {
+            txtAnalizarSin.setText("Error Semántico: " + ex.getMessage());
+            txtAnalizarSin.setForeground(Color.red);
+
+        // 4. Capturar ERRORES DE SINTAXIS (la excepción original de CUP)
         } catch (Exception ex) {
             Symbol sym = s.getS();
-            txtAnalizarSin.setText("Error de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
+            txtAnalizarSin.setText("Error de Sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
             txtAnalizarSin.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnAnalizarSinActionPerformed
