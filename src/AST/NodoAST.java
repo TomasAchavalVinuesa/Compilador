@@ -9,6 +9,6 @@ import TablaSimbolos.TablaSimbolos;
  * @author tavto
  */
 public abstract class NodoAST {
-    public abstract Object analizar(TablaSimbolos ts) throws ExcepcionSemantica;
+    public abstract String analizar(TablaSimbolos ts) throws ExcepcionSemantica; 
     public abstract Object generarCodigo();
 }

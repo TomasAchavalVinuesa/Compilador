@@ -371,7 +371,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // 4. Capturar ERRORES DE SINTAXIS (la excepción original de CUP)
         } catch (Exception ex) {
             Symbol sym = s.getS();
-            txtAnalizarSin.setText("Error de Sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
+            if (sym != null) {
+                // Si el parser identificó el token: Muestra la línea y columna
+                txtAnalizarSin.setText("Error de Sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
+            } else {
+                // Si sym es null (error catastrófico): Muestra un mensaje genérico.
+                txtAnalizarSin.setText("Error de Sintaxis catastrófico. Verifique la estructura del inicio del programa o un error en el Analizador Léxico.");
+            }
             txtAnalizarSin.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnAnalizarSinActionPerformed
