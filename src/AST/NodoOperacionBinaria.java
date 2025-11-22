@@ -28,8 +28,8 @@ public class NodoOperacionBinaria extends NodoAST{
         String tipoDerecho = this.operandoDerecho.analizar(ts);
 
         if (this.operador.matches("[+\\-*/]")) {
-            if (tipoIzquierdo.equals("Int") && tipoDerecho.equals("Int")) {
-                return "Int"; 
+            if (tipoIzquierdo.equals("int") && tipoDerecho.equals("int")) {
+                return "int"; 
             } else {
                 // Este caso es un error de tipo (ej: True + 5)
                 throw new ExcepcionSemantica("Error de Tipos: La operación '" + this.operador + "' solo está permitida entre tipos Int. Se encontró " + tipoIzquierdo + " y " + tipoDerecho + ".");
@@ -43,5 +43,13 @@ public class NodoOperacionBinaria extends NodoAST{
     @Override
     public Object generarCodigo() {
         return null;
+    }
+    
+    @Override
+    public String imprimir(String indent) {
+        String res = indent + "OPERACION (" + operador + ")\n";
+        res += operandoIzquierdo.imprimir(indent + "  ");
+        res += operandoDerecho.imprimir(indent + "  ");
+        return res;
     }
 }

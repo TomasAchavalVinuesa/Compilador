@@ -65,7 +65,6 @@ SENTENCIA ::= DECLARACION:dec
 
 DECLARACION ::= Int:tipo Identificador:id PuntoYComa
         {: 
-            // CORREGIDO: tipo.toString(), id.toString()
             RESULT = new NodoDeclaracion(tipo.toString(), id.toString(), null);
         :}
     | Int:tipo Identificador:id Igual EXPRESION:expresion PuntoYComa
@@ -97,17 +96,14 @@ RETORNO ::= Return EXPRESION:expresion PuntoYComa
 
 EXPRESION ::= Numero:num
         {: 
-            // CORREGIDO: num.toString()
             RESULT = new NodoLiteral(num.toString()); 
         :}
     | Identificador:id
         {: 
-            // CORREGIDO: id.toString()
             RESULT = new NodoIdentificador(id.toString()); 
         :}
     | True:valor
         {: 
-            // CORREGIDO: valor.toString()
             RESULT = new NodoLiteral(valor.toString()); 
         :}
     | False:valor
@@ -116,7 +112,6 @@ EXPRESION ::= Numero:num
         :}
     | EXPRESION:op1 Suma:op EXPRESION:op2
         {: 
-            // CORREGIDO: op.toString() en todos los operadores
             RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2); 
         :}
     | EXPRESION:op1 Resta:op EXPRESION:op2

@@ -35,4 +35,9 @@ public class NodoIdentificador extends NodoAST{
     public Object generarCodigo() {
         return nombre;
     }
+    
+    @Override
+    public String imprimir(String indent) {
+        return indent + "VARIABLE (" + nombre + ")\n";
+    }
 }

@@ -57,4 +57,14 @@ public class NodoDeclaracion extends NodoAST {
     public Object generarCodigo() {
         return null;
     }
+    
+    @Override
+    public String imprimir(String indent) {
+        String res = indent + "DECLARACION (" + tipo + " " + identificador + ")\n";
+        if (valorInicial != null) {
+            res += indent + "  =\n";
+            res += valorInicial.imprimir(indent + "    ");
+        }
+        return res;
+    }
 }

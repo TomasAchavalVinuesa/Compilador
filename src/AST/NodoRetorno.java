@@ -35,4 +35,11 @@ public class NodoRetorno extends NodoAST{
     public Object generarCodigo() {
         return null;
     }
+    
+    @Override
+    public String imprimir(String indent) {
+        String res = indent + "RETORNO\n";
+        res += expresion.imprimir(indent + "  ");
+        return res;
+    }
 }

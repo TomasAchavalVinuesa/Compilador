@@ -59,7 +59,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnGenerarAssembly = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnAnalizarLex = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAnalizarLex = new javax.swing.JTextArea();
         jPanel6 = new javax.swing.JPanel();
@@ -67,7 +66,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txtAST = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtAnalizarSin = new javax.swing.JTextArea();
-        btnAnalizarSin = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -155,17 +153,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(btnArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarAssembly, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarAssembly, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -187,15 +180,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Analizador Léxico");
         jLabel1.setAlignmentX(0.5F);
 
-        btnAnalizarLex.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnAnalizarLex.setText("Analizar");
-        btnAnalizarLex.setActionCommand("Analizar2");
-        btnAnalizarLex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnalizarLexActionPerformed(evt);
-            }
-        });
-
         txtAnalizarLex.setEditable(false);
         txtAnalizarLex.setColumns(20);
         txtAnalizarLex.setRows(5);
@@ -209,10 +193,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAnalizarLex, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
@@ -225,9 +205,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnalizarLex)
-                .addContainerGap())
+                .addGap(629, 629, 629))
         );
 
         jTabbedPane1.addTab("Análisis Léxico", jPanel5);
@@ -241,15 +219,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txtAnalizarSin.setColumns(20);
         txtAnalizarSin.setRows(5);
         jScrollPane3.setViewportView(txtAnalizarSin);
-
-        btnAnalizarSin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnAnalizarSin.setText("Analizar");
-        btnAnalizarSin.setActionCommand("Analizar2");
-        btnAnalizarSin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnalizarSinActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -269,16 +238,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(808, Short.MAX_VALUE)
-                .addComponent(btnAnalizarSin)
-                .addGap(101, 101, 101))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(17, 17, 17)
@@ -294,9 +259,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnAnalizarSin)
-                .addContainerGap())
+                .addGap(613, 613, 613))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(40, 40, 40)
@@ -340,7 +303,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -448,90 +410,215 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void analizarLexico() throws IOException{
+    private boolean analizarLexico() throws IOException{
         int cont = 1;
         
         String expr = (String) txtResultado.getText();
         Lexer lexer = new Lexer(new StringReader(expr));
         String resultado = "LINEA " + cont + "\t\tSimbolo\n\n";
-        while(true){
-            Tokens token = lexer. yylex();
-            if(token == null){
-                txtAnalizarLex.setText( resultado);
-                return;
-            }
-            switch (token){
-                    case Linea:
-                        cont++;
-                        resultado += "LINEA " + cont + "\n \n";
-                    break;
-                    case ERROR:
-                        resultado += "\t\t ERROR: Simbolo no definido\n";
-                        break;
-                    case Int:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una declaración de entero \n";
-                        break;
-                    case Bool:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una declaración de booleano \n";
-                        break;
-                    case Void:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un void \n";
-                        break;
-                    case Main:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un main \n";
-                        break;
-                    case Return:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un return \n";
-                        break;
-                    case True:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un true \n";
-                        break;
-                    case False:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un false \n";
-                        break;
-                    case Igual:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un igual \n";
-                        break;
-                    case Suma:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una suma \n";
-                        break;
-                    case Resta:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una resta \n";
-                        break;
-                    case Multiplicacion:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una multiplicación \n";
-                        break;
-                    case Division:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una división \n";
-                        break;
-                    case ParentesisAbre:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un paréntesis de apertura\n";
-                        break;
-                    case ParentesisCierra:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un paréntesis de cierre\n";
-                        break;
-                    case PuntoYComa:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un punto y coma\n";
-                        break;
-                    case LlaveAbre:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una llave de apertura\n";
-                        break;
-                    case LlaveCierra:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es una llave de cierre\n";
-                        break;
-                    case Identificador:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un identificador\n";
-                        break;
-                    case Numero:
-                        resultado += "\t\t" + lexer.lexeme + "  ->  Es un número\n";
-                        break;
-                    default:
-                        resultado+= "Token: " + token + "\n";
-                        break;
-                        
+        boolean hayErrores= false;
+        try{
+            while(true){
+                Tokens token = lexer. yylex();
+                if(token == null){
+                    txtAnalizarLex.setText( resultado);
+                    return !hayErrores;
                 }
+                switch (token){
+                        case Linea:
+                            cont++;
+                            resultado += "LINEA " + cont + "\n \n";
+                        break;
+                        case ERROR:
+                            resultado += "\t\t" + lexer.lexeme +"  ->  Es un ERROR: Simbolo no definido\n";
+                            hayErrores = true;
+                            break;
+                        case Int:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una declaración de entero \n";
+                            break;
+                        case Bool:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una declaración de booleano \n";
+                            break;
+                        case Void:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un void \n";
+                            break;
+                        case Main:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un main \n";
+                            break;
+                        case Return:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un return \n";
+                            break;
+                        case True:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un true \n";
+                            break;
+                        case False:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un false \n";
+                            break;
+                        case Igual:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un igual \n";
+                            break;
+                        case Suma:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una suma \n";
+                            break;
+                        case Resta:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una resta \n";
+                            break;
+                        case Multiplicacion:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una multiplicación \n";
+                            break;
+                        case Division:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una división \n";
+                            break;
+                        case ParentesisAbre:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un paréntesis de apertura\n";
+                            break;
+                        case ParentesisCierra:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un paréntesis de cierre\n";
+                            break;
+                        case PuntoYComa:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un punto y coma\n";
+                            break;
+                        case LlaveAbre:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una llave de apertura\n";
+                            break;
+                        case LlaveCierra:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es una llave de cierre\n";
+                            break;
+                        case Identificador:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un identificador\n";
+                            break;
+                        case Numero:
+                            resultado += "\t\t" + lexer.lexeme + "  ->  Es un número\n";
+                            break;
+                        default:
+                            resultado+= "Token: " + token + "\n";
+                            break;
+
+                    }
+            }
+        }catch(IOException ex){
+                txtAnalizarLex.setText("Error grave al analizar el léxico: " + ex.getMessage());
+                return false;
+            }
+    }
+    
+    private void mostrarArbolAST(NodoPrograma raiz) {
+        if (raiz == null) {
+            return;
+        }
+        // Llama al método imprimir recursivo comenzando sin indentación
+        String arbolString = raiz.imprimir(""); 
+        txtAST.setText(arbolString);
+    }
+    
+    private boolean analizarSintactico() {
+        String ST = txtResultado.getText();
+        // Limpieza crucial para evitar error catastrófico de EOF
+        ST = ST.trim(); 
+
+        Sintax s = new Sintax(new AnalizadorLexico.LexerCup(new StringReader(ST)));
+
+        try {
+            java_cup.runtime.Symbol rootSymbol = s.parse();
+
+            // Verificar si se obtuvo un AST válido
+            if (rootSymbol.value instanceof NodoPrograma) {
+                this.raizAST = (NodoPrograma) rootSymbol.value;
+
+                txtAnalizarSin.setText("Análisis Sintáctico realizado correctamente.");
+                txtAnalizarSin.setForeground(new Color(25, 111, 61)); // Verde
+
+                
+                mostrarArbolAST(this.raizAST); 
+
+                return true;
+            } else {
+                txtAnalizarSin.setText("Error: No se pudo construir el árbol sintáctico.");
+                txtAnalizarSin.setForeground(Color.red);
+                return false;
+            }
+
+        } catch (Exception ex) {
+            Symbol sym = s.getS();
+            txtAnalizarSin.setForeground(Color.red);
+            if (sym != null) {
+                txtAnalizarSin.setText("Error de Sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
+            } else {
+                txtAnalizarSin.setText("Error de Sintaxis catastrófico (posiblemente caracteres al final del archivo).");
+            }
+            return false;
         }
     }
+    
+    private void mostrarTablaSimbolos(TablaSimbolos ts) {
+        if (ts == null) {
+            return;
+        }
+        String tablaString = ts.imprimir(); 
+        txtTablaSimbolos.setText(tablaString); 
+    }
+    
+    private boolean analizarSemantico() {
+        if (this.raizAST == null) {
+            txtAnalizarSem.setText("No se puede realizar análisis semántico sin un AST válido.");
+            return false;
+        }
+
+        TablaSimbolos ts = new TablaSimbolos();
+
+        try {
+            // Ejecutar el análisis semántico
+            this.raizAST.analizar(ts);
+
+            // Si llegamos aquí, es un éxito
+            txtAnalizarSem.setText("Análisis Semántico realizado correctamente.");
+            txtAnalizarSem.setForeground(new Color(25, 111, 61)); // Verde
+
+            mostrarTablaSimbolos(ts);
+
+            return true;
+
+        } catch (ExcepcionSemantica ex) {
+            txtAnalizarSem.setText("Error Semántico: " + ex.getMessage());
+            txtAnalizarSem.setForeground(Color.red);
+            return false;
+        }
+    }
+    
+    private void compilar() throws IOException {
+        limpiarPantallas(); 
+    
+        if (!analizarLexico()) {
+            txtAnalizarLex.append("\n Se ha encontrado un error en este proceso, se ha detenido el proceso de compilación");
+            return;
+        }
+        
+        if (!analizarSintactico()) {
+            txtAnalizarSin.append("\n Se ha encontrado un error en este proceso, se ha detenido el proceso de compilación");
+            txtAST.append("\n Se ha encontrado un error en este proceso, se ha detenido el proceso de compilación");
+            return; // Detenerse si la sintaxis falla (no hay AST)
+        }
+        
+        if (!analizarSemantico()) {
+            txtAnalizarSem.append("\n Se ha encontrado un error en este proceso, se ha detenido el proceso de compilación");
+            txtTablaSimbolos.append("\n Se ha encontrado un error en este proceso, se ha detenido el proceso de compilación");
+            return; // Detenerse si la sintaxis falla (no hay AST)
+        }
+        
+        System.out.println("Compilación realizada exitosamente");
+
+}
+    
+    private void limpiarPantallas() {
+        txtAnalizarLex.setText(null);
+        txtAnalizarSin.setText(null);
+        txtAnalizarSem.setText(null);
+        txtAST.setText(null);
+        txtTablaSimbolos.setText(null);
+        txtCodigo3DC.setText(null);
+        txtCodigoAssembly.setText(null);
+    }
+    
     private void btnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
@@ -547,14 +634,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnArchivoActionPerformed
 
-    private void btnAnalizarLexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarLexActionPerformed
-        try {
-            analizarLexico();
-        } catch (IOException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnAnalizarLexActionPerformed
-
     private void btnAnalizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizar2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnalizar2ActionPerformed
@@ -564,46 +643,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnalizar5ActionPerformed
 
     private void btnGenerarAssemblyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarAssemblyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGenerarAssemblyActionPerformed
-
-    private void btnAnalizarSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarSinActionPerformed
-        // 27:52
-        String ST = txtResultado.getText();
-        ST = ST.trim();
-        Sintax s = new Sintax(new AnalizadorLexico.LexerCup(new StringReader(ST)));
-        TablaSimbolos ts = new TablaSimbolos();
-
         try {
-            // 1. Ejecutar el análisis sintáctico y obtener la raíz del AST
-            java_cup.runtime.Symbol rootSymbol = s.parse();
-            NodoPrograma raizAST = (NodoPrograma) rootSymbol.value; // El RESULT de la regla INICIO
-
-            // 2. Ejecutar el Análisis Semántico
-            raizAST.analizar(ts);
-
-            // Si todo fue bien (no se lanzó ninguna excepción):
-            txtAnalizarSin.setText("Análisis Sintáctico y Semántico realizado correctamente");
-            txtAnalizarSin.setForeground(new Color(25, 111, 61));
-
-            // 3. Capturar ERRORES SEMÁNTICOS (tu nueva excepción)
-        } catch (ExcepcionSemantica ex) {
-            txtAnalizarSin.setText("Error Semántico: " + ex.getMessage());
-            txtAnalizarSin.setForeground(Color.red);
-
-            // 4. Capturar ERRORES DE SINTAXIS (la excepción original de CUP)
-        } catch (Exception ex) {
-            Symbol sym = s.getS();
-            if (sym != null) {
-                // Si el parser identificó el token: Muestra la línea y columna
-                txtAnalizarSin.setText("Error de Sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
-            } else {
-                // Si sym es null (error catastrófico): Muestra un mensaje genérico.
-                txtAnalizarSin.setText("Error de Sintaxis catastrófico. Verifique la estructura del inicio del programa o un error en el Analizador Léxico.");
-            }
-            txtAnalizarSin.setForeground(Color.red);
+            compilar();
+                    } catch (IOException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAnalizarSinActionPerformed
+    }//GEN-LAST:event_btnGenerarAssemblyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -643,8 +688,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnalizar2;
     private javax.swing.JButton btnAnalizar5;
-    private javax.swing.JButton btnAnalizarLex;
-    private javax.swing.JButton btnAnalizarSin;
     private javax.swing.JButton btnArchivo;
     private javax.swing.JButton btnGenerarAssembly;
     private javax.swing.JLabel jLabel1;

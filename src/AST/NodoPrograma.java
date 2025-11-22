@@ -41,4 +41,14 @@ public class NodoPrograma extends NodoAST {
         // Se implementará más adelante
         return null;
     }
+    
+    @Override
+    public String imprimir(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent).append("PROGRAMA\n");
+        for (NodoAST sentencia : listaSentencias) {
+            sb.append(sentencia.imprimir(indent + "  "));
+        }
+        return sb.toString();
+    }
 }

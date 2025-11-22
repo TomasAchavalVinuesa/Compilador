@@ -19,9 +19,9 @@ public class NodoLiteral extends NodoAST{
     public String analizar(TablaSimbolos ts) throws ExcepcionSemantica {
         // Lógica: Determinar el tipo de este valor constante
         if (valor.matches("\\d+")) {
-            return "Int"; 
+            return "int"; 
         } else if (valor.equalsIgnoreCase("True") || valor.equalsIgnoreCase("False")) {
-            return "Bool";
+            return "bool";
         } else {
             // SOLUCIÓN: Si no coincide con Int o Bool, LANZAR la excepción
             throw new ExcepcionSemantica("Error Semántico: Literal '" + this.valor + "' no reconocido o de tipo no válido.");
@@ -31,5 +31,10 @@ public class NodoLiteral extends NodoAST{
     @Override
     public Object generarCodigo() {
         return valor;
+    }
+    
+    @Override
+    public String imprimir(String indent) {
+        return indent + "LITERAL (" + valor + ")\n";
     }
 }

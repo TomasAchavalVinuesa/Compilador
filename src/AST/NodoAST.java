@@ -11,4 +11,5 @@ import TablaSimbolos.TablaSimbolos;
 public abstract class NodoAST {
     public abstract String analizar(TablaSimbolos ts) throws ExcepcionSemantica; 
     public abstract Object generarCodigo();
+    public abstract String imprimir(String indent);
 }

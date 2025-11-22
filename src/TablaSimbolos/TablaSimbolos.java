@@ -28,4 +28,19 @@ public class TablaSimbolos {
     public Simbolo buscar(String nombre) {
         return tabla.get(nombre);
     }
+    
+    public String imprimir() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("NOMBRE\t\tTIPO\n");
+        sb.append("------\t\t----\n");
+        
+        // Recorremos todos los valores del mapa
+        for (Simbolo s : tabla.values()) {
+            sb.append(s.getNombre())
+              .append("\t\t")
+              .append(s.getTipo())
+              .append("\n");
+        }
+        return sb.toString();
+    }
 }

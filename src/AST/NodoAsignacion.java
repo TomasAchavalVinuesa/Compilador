@@ -44,4 +44,12 @@ public class NodoAsignacion extends NodoAST {
     public Object generarCodigo() {
         return null;
     }
+    
+    @Override
+    public String imprimir(String indent) {
+        String res = indent + "ASIGNACION (" + identificador + ")\n";
+        res += indent + "  =\n";
+        res += expresion.imprimir(indent + "    ");
+        return res;
+    }
 }
