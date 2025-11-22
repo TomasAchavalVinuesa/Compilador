@@ -17,14 +17,21 @@ parser code {:
 :};
 
 terminal Int, Bool, Void, Main, Return, True, False, Igual, Suma, Resta, Multiplicacion, Division, 
-        ParentesisAbre, ParentesisCierra, PuntoYComa, LlaveAbre, LlaveCierra, Identificador, Numero;
+        ParentesisAbre, ParentesisCierra, PuntoYComa, LlaveAbre, LlaveCierra, Identificador, Numero, 
+        If, Else, While, And, Or, Not, Mayor, Menor, IgualIgual, Modulo, Var, Printi, UMENOS;
 
 non terminal NodoPrograma INICIO;
-non terminal List LISTA_SENTENCIAS;
-non terminal NodoAST SENTENCIA, DECLARACION, ASIGNACION, RETORNO, EXPRESION;
+non terminal List<NodoAST> LISTA_SENTENCIAS;
+non terminal NodoAST SENTENCIA, DECLARACION, ASIGNACION, RETORNO, EXPRESION, IF_SENTENCIA, WHILE_SENTENCIA, BLOQUE;
 
+precedence left Or;
+precedence left And;
+precedence left IgualIgual;
+precedence left Mayor, Menor;
 precedence left Suma, Resta;
-precedence left Multiplicacion, Division;
+precedence left Multiplicacion, Division, Modulo;
+precedence right Not, UMENOS;
+precedence nonassoc Else; //Esto para evitar que el else se asocie a más de un if o al if equivocado
 
 start with INICIO;
 
@@ -55,12 +62,25 @@ LISTA_SENTENCIAS ::=
         :}
 ;
 
-SENTENCIA ::= DECLARACION:dec
-        {: RESULT = (NodoAST)dec; :}
-    | ASIGNACION:asig
-        {: RESULT = (NodoAST)asig; :}
-    | RETORNO:ret
-        {: RESULT = (NodoAST)ret; :}
+SENTENCIA ::= DECLARACION:dec {: RESULT = dec; :}
+    | ASIGNACION:asig {: RESULT = asig; :}
+    | RETORNO:ret {: RESULT = ret; :}
+    | IF_SENTENCIA:ifs {: RESULT = ifs; :}
+    | WHILE_SENTENCIA:whiles {: RESULT = whiles; :}
+;
+
+IF_SENTENCIA ::= If ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bThen
+        {: RESULT = new NodoIf(cond, bThen, null); :}
+    | If ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bThen Else BLOQUE:bElse
+        {: RESULT = new NodoIf(cond, bThen, bElse); :}
+;
+
+WHILE_SENTENCIA ::= While ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bloque
+        {: RESULT = new NodoWhile(cond, bloque); :}
+;
+
+BLOQUE ::= LlaveAbre LISTA_SENTENCIAS:lista LlaveCierra
+        {: RESULT = new NodoBloque(lista); :}
 ;
 
 DECLARACION ::= Int:tipo Identificador:id PuntoYComa
@@ -94,40 +114,21 @@ RETORNO ::= Return EXPRESION:expresion PuntoYComa
         :}
 ;
 
-EXPRESION ::= Numero:num
-        {: 
-            RESULT = new NodoLiteral(num.toString()); 
-        :}
-    | Identificador:id
-        {: 
-            RESULT = new NodoIdentificador(id.toString()); 
-        :}
-    | True:valor
-        {: 
-            RESULT = new NodoLiteral(valor.toString()); 
-        :}
-    | False:valor
-        {: 
-            RESULT = new NodoLiteral(valor.toString()); 
-        :}
-    | EXPRESION:op1 Suma:op EXPRESION:op2
-        {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2); 
-        :}
-    | EXPRESION:op1 Resta:op EXPRESION:op2
-        {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
-        :}
-    | EXPRESION:op1 Multiplicacion:op EXPRESION:op2
-        {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
-        :}
-    | EXPRESION:op1 Division:op EXPRESION:op2
-        {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
-        :}
-    | ParentesisAbre EXPRESION:exp ParentesisCierra
-        {: 
-            RESULT = (NodoAST)exp;
-        :}
+EXPRESION ::= Numero:num {: RESULT = new NodoLiteral(num.toString()); :}
+    | Identificador:id   {: RESULT = new NodoIdentificador(id.toString()); :}
+    | True:valor         {: RESULT = new NodoLiteral(valor.toString()); :}
+    | False:valor        {: RESULT = new NodoLiteral(valor.toString()); :}
+    | EXPRESION:op1 Suma:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Resta:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Multiplicacion:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Division:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Modulo:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 And:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Or:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Mayor:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 Menor:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | EXPRESION:op1 IgualIgual:op EXPRESION:op2 {: RESULT = new NodoOperacionBinaria(op1, op.toString(), op2); :}
+    | Not:op EXPRESION:e {: RESULT = new NodoOperacionUnaria(op.toString(), e); :}
+    | Resta:op EXPRESION:e {: RESULT = new NodoOperacionUnaria(op.toString(), e); :} %prec UMENOS
+    | ParentesisAbre EXPRESION:exp ParentesisCierra {: RESULT = exp; :}
 ;

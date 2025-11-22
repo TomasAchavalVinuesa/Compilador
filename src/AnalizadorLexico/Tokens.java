@@ -25,5 +25,17 @@ public enum Tokens {
     LlaveCierra,
     Identificador,
     Numero,
-    ERROR
+    ERROR,
+    If,
+    Else,
+    While,
+    And,
+    Or,
+    Not,
+    Mayor,
+    Menor,
+    IgualIgual,
+    Modulo,
+    Var,
+    Printi
 }

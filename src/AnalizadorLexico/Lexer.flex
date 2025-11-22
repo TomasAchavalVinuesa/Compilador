@@ -15,6 +15,11 @@ WS = [ \t\r]+
 %}
 %%
 {D}+{L}({L}|{D})* {lexeme = yytext(); return ERROR;}
+"if" {lexeme=yytext(); return If;}
+"else" {lexeme=yytext(); return Else;}
+"while" {lexeme=yytext(); return While;}
+"var" {lexeme=yytext(); return Var;}
+"printi" {lexeme=yytext(); return Printi;}
 "int" {lexeme=yytext(); return Int;}
 "bool" {lexeme=yytext(); return Bool;}
 "void" {lexeme=yytext(); return Void;}
@@ -24,6 +29,13 @@ WS = [ \t\r]+
 "false" { lexeme = yytext(); return False; }
 {WS} {/*ignore*/}
 "//".* {/*ignore*/}
+"&&" { lexeme = yytext(); return And; }
+"||" { lexeme = yytext(); return Or; }
+"!" { lexeme = yytext(); return Not; }
+">" { lexeme = yytext(); return Mayor; }
+"<" { lexeme = yytext(); return Menor; }
+"==" { lexeme = yytext(); return IgualIgual; }
+"%" { lexeme = yytext(); return Modulo; }
 "\n" { lexeme = yytext(); return Linea; }
 "=" { lexeme = yytext(); return Igual; }
 "+" { lexeme = yytext(); return Suma; }

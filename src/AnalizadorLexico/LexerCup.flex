@@ -23,6 +23,11 @@ NEWLINE = \n
 %}
 %%
 {D}+{L}({L}|{D})* {return new Symbol(sym.error, yychar, yyline, yytext());}
+"if" {return new Symbol(sym.If, yycolumn, yyline, yytext());}
+"else" {return new Symbol(sym.Else, yycolumn, yyline, yytext());}
+"while" {return new Symbol(sym.While, yycolumn, yyline, yytext());}
+"var" {return new Symbol(sym.Var, yycolumn, yyline, yytext());}
+"printi" {return new Symbol(sym.Printi, yycolumn, yyline, yytext());}
 "int" {return new Symbol(sym.Int, yychar, yyline, yytext());}
 "bool" {return new Symbol(sym.Bool, yychar, yyline, yytext());}
 "void" {return new Symbol(sym.Void, yychar, yyline, yytext());}
@@ -33,6 +38,13 @@ NEWLINE = \n
 {NEWLINE} {/*ignore*/}
 {WS} {/*ignore*/}
 "//".* {/*ignore*/}
+"&&" {return new Symbol(sym.And, yycolumn, yyline, yytext());}
+"||" {return new Symbol(sym.Or, yycolumn, yyline, yytext());}
+"!" {return new Symbol(sym.Not, yycolumn, yyline, yytext());}
+">" {return new Symbol(sym.Mayor, yycolumn, yyline, yytext());}
+"<" {return new Symbol(sym.Menor, yycolumn, yyline, yytext());}
+"==" {return new Symbol(sym.IgualIgual, yycolumn, yyline, yytext());}
+"%" {return new Symbol(sym.Modulo, yycolumn, yyline, yytext());}
 "=" {return new Symbol(sym.Igual, yychar, yyline, yytext());}
 "+" {return new Symbol(sym.Suma, yychar, yyline, yytext());}
 "-" {return new Symbol(sym.Resta, yychar, yyline, yytext());}

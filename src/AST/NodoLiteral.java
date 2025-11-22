@@ -17,15 +17,24 @@ public class NodoLiteral extends NodoAST{
     
     @Override
     public String analizar(TablaSimbolos ts) throws ExcepcionSemantica {
-        // Lógica: Determinar el tipo de este valor constante
         if (valor.matches("\\d+")) {
-            return "int"; 
+            try {
+                // Intentar parsear como Long para verificar si entra en Int
+                long val = Long.parseLong(valor);
+                if (val > 2147483647L) {
+                    // Nota: 2147483648 es válido solo si tiene un '-' delante en el parser,
+                    // pero como literal positivo individual, es un desbordamiento.
+                    // Simplificación: marcamos error si el literal per se es muy grande.
+                    throw new ExcepcionSemantica("El entero " + valor + " excede el límite de 32 bits.");
+                }
+                return "int";
+            } catch (NumberFormatException e) {
+                throw new ExcepcionSemantica("Número inválido: " + valor);
+            }
         } else if (valor.equalsIgnoreCase("True") || valor.equalsIgnoreCase("False")) {
             return "bool";
-        } else {
-            // SOLUCIÓN: Si no coincide con Int o Bool, LANZAR la excepción
-            throw new ExcepcionSemantica("Error Semántico: Literal '" + this.valor + "' no reconocido o de tipo no válido.");
         }
+        throw new ExcepcionSemantica("Literal desconocido: " + valor);
     }
     
     @Override

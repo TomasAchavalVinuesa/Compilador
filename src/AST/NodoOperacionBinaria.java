@@ -23,21 +23,29 @@ public class NodoOperacionBinaria extends NodoAST{
 
     @Override
     public String analizar(TablaSimbolos ts) throws ExcepcionSemantica {
-        // Si los sub-análisis fallan, lanzarán ExcepcionSemantica y este método se abortará.
-        String tipoIzquierdo = this.operandoIzquierdo.analizar(ts);
-        String tipoDerecho = this.operandoDerecho.analizar(ts);
+        String t1 = operandoIzquierdo.analizar(ts);
+        String t2 = operandoDerecho.analizar(ts);
 
-        if (this.operador.matches("[+\\-*/]")) {
-            if (tipoIzquierdo.equals("int") && tipoDerecho.equals("int")) {
-                return "int"; 
-            } else {
-                // Este caso es un error de tipo (ej: True + 5)
-                throw new ExcepcionSemantica("Error de Tipos: La operación '" + this.operador + "' solo está permitida entre tipos Int. Se encontró " + tipoIzquierdo + " y " + tipoDerecho + ".");
-            }
-        } 
+        // Operaciones Aritméticas
+        if (operador.matches("[+\\-*/%]")) {
+            if (t1.equals("int") && t2.equals("int")) return "int";
+            throw new ExcepcionSemantica("Operación aritmética " + operador + " requiere enteros.");
+        }
 
-        // Si la operación no es aritmética, y llega aquí (ej: comparaciones), fallará si no está implementado
-        throw new ExcepcionSemantica("Error de Tipos: Operador binario '" + this.operador + "' no soportado para los tipos encontrados."); 
+        // Operaciones Relacionales
+        if (operador.matches("[><]|==")) {
+            // Asumimos que se pueden comparar int con int. (Opcional: bool con bool para ==)
+            if (t1.equals(t2)) return "bool"; 
+            throw new ExcepcionSemantica("Comparación requiere tipos iguales.");
+        }
+
+        // Operaciones Lógicas
+        if (operador.equals("&&") || operador.equals("||")) {
+            if (t1.equals("bool") && t2.equals("bool")) return "bool";
+            throw new ExcepcionSemantica("Operación lógica " + operador + " requiere booleanos.");
+        }
+
+        return "ERROR";
     }
 
     @Override
