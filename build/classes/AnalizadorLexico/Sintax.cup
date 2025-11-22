@@ -31,17 +31,18 @@ start with INICIO;
 INICIO ::= Int:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
         {: 
             List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
-            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista); 
+            // ANTES: tipoRetorno.value.toString() -> AHORA: tipoRetorno.toString()
+            RESULT = new NodoPrograma(tipoRetorno.toString(), lista); 
         :}
     | Void:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
         {: 
             List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
-            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista);
+            RESULT = new NodoPrograma(tipoRetorno.toString(), lista);
         :}
     | Bool:tipoRetorno Main ParentesisAbre ParentesisCierra LlaveAbre LISTA_SENTENCIAS:sentencias LlaveCierra
         {: 
             List<NodoAST> lista = (sentencias == null) ? new ArrayList<>() : (List<NodoAST>)sentencias;
-            RESULT = new NodoPrograma(tipoRetorno.value.toString(), lista);
+            RESULT = new NodoPrograma(tipoRetorno.toString(), lista);
         :}
 ;
 
@@ -55,40 +56,36 @@ LISTA_SENTENCIAS ::=
 ;
 
 SENTENCIA ::= DECLARACION:dec
-        {: 
-            RESULT = (NodoAST)dec;
-        :}
+        {: RESULT = (NodoAST)dec; :}
     | ASIGNACION:asig
-        {: 
-            RESULT = (NodoAST)asig;
-        :}
+        {: RESULT = (NodoAST)asig; :}
     | RETORNO:ret
-        {: 
-            RESULT = (NodoAST)ret;
-        :}
+        {: RESULT = (NodoAST)ret; :}
 ;
 
 DECLARACION ::= Int:tipo Identificador:id PuntoYComa
         {: 
-            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), null);
+            // CORREGIDO: tipo.toString(), id.toString()
+            RESULT = new NodoDeclaracion(tipo.toString(), id.toString(), null);
         :}
     | Int:tipo Identificador:id Igual EXPRESION:expresion PuntoYComa
         {: 
-            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), (NodoAST)expresion);
+            RESULT = new NodoDeclaracion(tipo.toString(), id.toString(), (NodoAST)expresion);
         :}
     | Bool:tipo Identificador:id PuntoYComa
         {: 
-            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), null);
+            RESULT = new NodoDeclaracion(tipo.toString(), id.toString(), null);
         :}
     | Bool:tipo Identificador:id Igual EXPRESION:expresion PuntoYComa
         {: 
-            RESULT = new NodoDeclaracion(tipo.value.toString(), id.value.toString(), (NodoAST)expresion);
+            RESULT = new NodoDeclaracion(tipo.toString(), id.toString(), (NodoAST)expresion);
         :}
 ;
 
 ASIGNACION ::= Identificador:id Igual EXPRESION:expresion PuntoYComa
         {:
-            RESULT = new NodoAsignacion(id.value.toString(), (NodoAST)expresion);
+            // CORREGIDO: id.toString()
+            RESULT = new NodoAsignacion(id.toString(), (NodoAST)expresion);
         :}
 ;
 
@@ -100,35 +97,39 @@ RETORNO ::= Return EXPRESION:expresion PuntoYComa
 
 EXPRESION ::= Numero:num
         {: 
-            RESULT = new NodoLiteral(num.value.toString()); 
+            // CORREGIDO: num.toString()
+            RESULT = new NodoLiteral(num.toString()); 
         :}
     | Identificador:id
         {: 
-            RESULT = new NodoIdentificador(id.value.toString()); 
+            // CORREGIDO: id.toString()
+            RESULT = new NodoIdentificador(id.toString()); 
         :}
     | True:valor
         {: 
-            RESULT = new NodoLiteral(valor.value.toString()); 
+            // CORREGIDO: valor.toString()
+            RESULT = new NodoLiteral(valor.toString()); 
         :}
     | False:valor
         {: 
-            RESULT = new NodoLiteral(valor.value.toString()); 
+            RESULT = new NodoLiteral(valor.toString()); 
         :}
     | EXPRESION:op1 Suma:op EXPRESION:op2
         {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2); 
+            // CORREGIDO: op.toString() en todos los operadores
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2); 
         :}
     | EXPRESION:op1 Resta:op EXPRESION:op2
         {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
         :}
     | EXPRESION:op1 Multiplicacion:op EXPRESION:op2
         {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
         :}
     | EXPRESION:op1 Division:op EXPRESION:op2
         {: 
-            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.value.toString(), (NodoAST)op2);
+            RESULT = new NodoOperacionBinaria((NodoAST)op1, op.toString(), (NodoAST)op2);
         :}
     | ParentesisAbre EXPRESION:exp ParentesisCierra
         {: 

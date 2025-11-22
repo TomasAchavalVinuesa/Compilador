@@ -23,26 +23,21 @@ public class NodoOperacionBinaria extends NodoAST{
 
     @Override
     public String analizar(TablaSimbolos ts) throws ExcepcionSemantica {
-        // 1. Obtener los tipos de los operandos recursivamente
+        // Si los sub-análisis fallan, lanzarán ExcepcionSemantica y este método se abortará.
         String tipoIzquierdo = this.operandoIzquierdo.analizar(ts);
         String tipoDerecho = this.operandoDerecho.analizar(ts);
 
-        if (tipoIzquierdo.equals("ERROR") || tipoDerecho.equals("ERROR")) {
-            return "ERROR"; // Propagar errores desde abajo
-        }
-
-        // 2. Definir reglas de compatibilidad para operaciones aritméticas
         if (this.operador.matches("[+\\-*/]")) {
-            // Operaciones aritméticas solo permiten Int
             if (tipoIzquierdo.equals("Int") && tipoDerecho.equals("Int")) {
-                return "Int"; // El resultado es Int
+                return "Int"; 
             } else {
+                // Este caso es un error de tipo (ej: True + 5)
                 throw new ExcepcionSemantica("Error de Tipos: La operación '" + this.operador + "' solo está permitida entre tipos Int. Se encontró " + tipoIzquierdo + " y " + tipoDerecho + ".");
             }
         } 
-        // Se pueden añadir aquí otras operaciones (ej: comparaciones "==" o "&&" que devuelven "Bool")
 
-        return "ERROR_OPERADOR_NO_SOPORTADO"; // En caso de operador desconocido o no manejado
+        // Si la operación no es aritmética, y llega aquí (ej: comparaciones), fallará si no está implementado
+        throw new ExcepcionSemantica("Error de Tipos: Operador binario '" + this.operador + "' no soportado para los tipos encontrados."); 
     }
 
     @Override

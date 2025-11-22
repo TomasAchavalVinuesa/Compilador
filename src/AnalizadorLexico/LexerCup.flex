@@ -11,7 +11,8 @@ L = [a-zA-Z_]
 D = [0-9]
 ID = {L}({L}|{D})*
 NUM = {D}+
-WS = [ \t\r\n]+  
+WS = [ \t\r]+  
+NEWLINE = \n
 %{
     private Symbol symbol(int type, Object value){
         return new Symbol(type, yyline, yycolumn, value);
@@ -21,7 +22,7 @@ WS = [ \t\r\n]+
     }
 %}
 %%
-{D}+{L}({L}|{D})* {lexeme = yytext(); return ERROR;}
+{D}+{L}({L}|{D})* {return new Symbol(sym.error, yychar, yyline, yytext());}
 "int" {return new Symbol(sym.Int, yychar, yyline, yytext());}
 "bool" {return new Symbol(sym.Bool, yychar, yyline, yytext());}
 "void" {return new Symbol(sym.Void, yychar, yyline, yytext());}
@@ -29,6 +30,7 @@ WS = [ \t\r\n]+
 "return" {return new Symbol(sym.Return, yychar, yyline, yytext());}
 "true" {return new Symbol(sym.True, yychar, yyline, yytext());}
 "false" {return new Symbol(sym.False, yychar, yyline, yytext());}
+{NEWLINE} {/*ignore*/}
 {WS} {/*ignore*/}
 "//".* {/*ignore*/}
 "=" {return new Symbol(sym.Igual, yychar, yyline, yytext());}
@@ -43,4 +45,4 @@ WS = [ \t\r\n]+
 "}" {return new Symbol(sym.LlaveCierra, yychar, yyline, yytext());}
 {ID} {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
 {NUM} {return new Symbol(sym.Numero, yychar, yyline, yytext());}
- . {return ERROR;}
+ . {return new Symbol(sym.error, yychar, yyline, yytext());}

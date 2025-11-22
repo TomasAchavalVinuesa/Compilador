@@ -16,14 +16,15 @@ public class NodoLiteral extends NodoAST{
     }
     
     @Override
-    public String analizar(TablaSimbolos ts) {
+    public String analizar(TablaSimbolos ts) throws ExcepcionSemantica {
         // Lógica: Determinar el tipo de este valor constante
         if (valor.matches("\\d+")) {
             return "Int"; 
         } else if (valor.equalsIgnoreCase("True") || valor.equalsIgnoreCase("False")) {
             return "Bool";
         } else {
-            return "ERROR_TIPO_LITERAL_DESCONOCIDO";
+            // SOLUCIÓN: Si no coincide con Int o Bool, LANZAR la excepción
+            throw new ExcepcionSemantica("Error Semántico: Literal '" + this.valor + "' no reconocido o de tipo no válido.");
         }
     }
     
