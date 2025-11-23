@@ -27,6 +27,7 @@ public enum Tokens {
     Numero,
     ERROR,
     If,
+    Then,
     Else,
     While,
     And,

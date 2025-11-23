@@ -16,6 +16,7 @@ WS = [ \t\r]+
 %%
 {D}+{L}({L}|{D})* {lexeme = yytext(); return ERROR;}
 "if" {lexeme=yytext(); return If;}
+"then" {lexeme=yytext(); return Then;}
 "else" {lexeme=yytext(); return Else;}
 "while" {lexeme=yytext(); return While;}
 "var" {lexeme=yytext(); return Var;}

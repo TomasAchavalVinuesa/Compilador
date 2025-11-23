@@ -18,7 +18,7 @@ parser code {:
 
 terminal Int, Bool, Void, Main, Return, True, False, Igual, Suma, Resta, Multiplicacion, Division, 
         ParentesisAbre, ParentesisCierra, PuntoYComa, LlaveAbre, LlaveCierra, Identificador, Numero, 
-        If, Else, While, And, Or, Not, Mayor, Menor, IgualIgual, Modulo, Var, Printi, UMENOS;
+        If, Then, Else, While, And, Or, Not, Mayor, Menor, IgualIgual, Modulo, Var, Printi, UMENOS;
 
 non terminal NodoPrograma INICIO;
 non terminal List<NodoAST> LISTA_SENTENCIAS;
@@ -69,10 +69,10 @@ SENTENCIA ::= DECLARACION:dec {: RESULT = dec; :}
     | WHILE_SENTENCIA:whiles {: RESULT = whiles; :}
 ;
 
-IF_SENTENCIA ::= If ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bThen
-        {: RESULT = new NodoIf(cond, bThen, null); :}
-    | If ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bThen Else BLOQUE:bElse
-        {: RESULT = new NodoIf(cond, bThen, bElse); :}
+IF_SENTENCIA ::= If ParentesisAbre EXPRESION:cond ParentesisCierra Then BLOQUE:bThen
+        {: RESULT = new NodoIf((NodoAST)cond, (NodoAST)bThen, null); :}
+    | If ParentesisAbre EXPRESION:cond ParentesisCierra Then BLOQUE:bThen Else BLOQUE:bElse
+        {: RESULT = new NodoIf((NodoAST)cond, (NodoAST)bThen, (NodoAST)bElse); :}
 ;
 
 WHILE_SENTENCIA ::= While ParentesisAbre EXPRESION:cond ParentesisCierra BLOQUE:bloque

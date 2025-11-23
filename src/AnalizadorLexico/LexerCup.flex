@@ -24,6 +24,7 @@ NEWLINE = \n
 %%
 {D}+{L}({L}|{D})* {return new Symbol(sym.error, yychar, yyline, yytext());}
 "if" {return new Symbol(sym.If, yycolumn, yyline, yytext());}
+"then" {return new Symbol(sym.Then, yycolumn, yyline, yytext());}
 "else" {return new Symbol(sym.Else, yycolumn, yyline, yytext());}
 "while" {return new Symbol(sym.While, yycolumn, yyline, yytext());}
 "var" {return new Symbol(sym.Var, yycolumn, yyline, yytext());}
